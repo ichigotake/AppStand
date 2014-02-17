@@ -1,0 +1,23 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+apply from: 'gradle/gradle-android-utils/build.gradle'
+
+def propertiesFile = new File(project.projectDir.getAbsolutePath(), "gradle.properties")
+if (!propertiesFile.exists()) {
+    propertiesFile << new File(propertiesFile.getAbsolutePath() + ".example").readBytes()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.8.+'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
