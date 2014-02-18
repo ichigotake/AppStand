@@ -8,14 +8,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="net.ichigotake.appstand.StandFragment">
 
-    <TextView
-        android:id="@+id/basePackageName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/sectionTitleText"
-        android:background="@color/sectionTitleBackground"
-        android:textStyle="bold"/>
-
     <ListView
         android:id="@+id/packages"
         android:layout_below="@+id/basePackageName"

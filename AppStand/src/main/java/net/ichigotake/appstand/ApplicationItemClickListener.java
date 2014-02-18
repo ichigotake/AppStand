@@ -3,7 +3,6 @@ package net.ichigotake.appstand;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -11,10 +10,10 @@ import android.widget.Toast;
 class ApplicationItemClickListener implements View.OnClickListener {
 
     final private String LOG_TAG = ApplicationItemClickListener.class.getSimpleName();
-    final private ApplicationInfo mAppInfo;
+    final private Application mApplication;
 
-    ApplicationItemClickListener(ApplicationInfo appInfo) {
-        mAppInfo = appInfo;
+    ApplicationItemClickListener(Application application) {
+        mApplication = application;
     }
 
     @Override
@@ -22,7 +21,7 @@ class ApplicationItemClickListener implements View.OnClickListener {
         final Context context = view.getContext();
         try {
             final Intent intent = context.getPackageManager()
-                    .getLaunchIntentForPackage(mAppInfo.packageName);
+                    .getLaunchIntentForPackage(mApplication.getPackageName());
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             onException(context, e);
@@ -32,7 +31,7 @@ class ApplicationItemClickListener implements View.OnClickListener {
     }
 
     private void onException(Context context, Exception e) {
-        Toast.makeText(context, "指定したアプリが開けませんでした", Toast.LENGTH_SHORT);
+        Toast.makeText(context, "指定したアプリが開けませんでした", Toast.LENGTH_SHORT).show();
         Log.e(LOG_TAG, "", e);
     }
 

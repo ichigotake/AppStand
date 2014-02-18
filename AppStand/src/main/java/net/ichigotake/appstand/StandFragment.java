@@ -1,15 +1,13 @@
 package net.ichigotake.appstand;
 
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.List;
 
 public class StandFragment extends Fragment {
 
@@ -28,19 +26,19 @@ public class StandFragment extends Fragment {
 
         final ApplicationUtils utils = new ApplicationUtils(getActivity());
         final PackageAdapter adapter = new PackageAdapter(getActivity());
-        final List<ApplicationInfo> installedAppList = utils.getInstalledPackages();
-        for (ApplicationInfo appInfo : installedAppList) {
-            if ( utils.isInstallApp(appInfo)
-                    && utils.activitiesExists(appInfo)
-                    && appInfo.packageName.startsWith(BuildConfig.BASE_PACKAGE_NAME)) {
-                adapter.add(appInfo);
+        for (Application app : utils.getInstalledPackages()) {
+            if (app.getPackageName().startsWith(BuildConfig.BASE_PACKAGE_NAME)) {
+                adapter.add(app);
             }
         }
 
         ((ListView)getView().findViewById(R.id.packages)).setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        ((TextView)getView().findViewById(R.id.basePackageName)).setText(BuildConfig.BASE_PACKAGE_NAME);
+        getSupportActionBar().setTitle(BuildConfig.BASE_PACKAGE_NAME);
     }
 
+    private ActionBar getSupportActionBar() {
+        return ((ActionBarActivity)getActivity()).getSupportActionBar();
+    }
 }
