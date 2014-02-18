@@ -10,7 +10,6 @@
 
     <ListView
         android:id="@+id/packages"
-        android:layout_below="@+id/basePackageName"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

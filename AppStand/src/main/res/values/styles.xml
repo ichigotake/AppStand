@@ -5,7 +5,4 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <color name="sectionTitleText">#ffffff</color>
-    <color name="sectionTitleBackground">#666666</color>
-
 </resources>

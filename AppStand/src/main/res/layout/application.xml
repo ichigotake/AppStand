@@ -7,10 +7,11 @@
     <ImageView
         android:id="@+id/applicationIcon"
         android:layout_alignParentLeft="true"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginRight="8dp"
-        android:adjustViewBounds="true"/>
+        android:layout_width="@dimen/application_icon_size"
+        android:layout_height="@dimen/application_icon_size"
+        android:layout_marginRight="@dimen/drawable_padding"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name_icon"/>
 
     <RelativeLayout
         android:layout_toRightOf="@+id/applicationIcon"
@@ -21,23 +22,23 @@
             android:id="@+id/applicationName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:textSize="16sp"/>
+            android:layout_marginBottom="@dimen/text_line_margin"
+            android:textSize="@dimen/text_medium"/>
 
         <TextView
             android:id="@+id/applicationPackageName"
             android:layout_below="@+id/applicationName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:textSize="12sp"/>
+            android:layout_marginBottom="@dimen/text_line_margin"
+            android:textSize="@dimen/text_small"/>
 
         <TextView
             android:id="@+id/applicationLastUpdated"
             android:layout_below="@+id/applicationPackageName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_small"/>
 
     </RelativeLayout>
 

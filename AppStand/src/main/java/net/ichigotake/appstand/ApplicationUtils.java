@@ -1,5 +1,6 @@
 package net.ichigotake.appstand;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -19,6 +20,7 @@ class ApplicationUtils {
         mContext = context;
     }
 
+    @TargetApi(9)
     List<Application> getInstalledPackages() {
         final List<Application> apps = new ArrayList<Application>();
         final PackageManager packageManager = mContext.getPackageManager();

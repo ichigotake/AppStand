@@ -3,4 +3,11 @@
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
 
+    <dimen name="application_icon_size">72dp</dimen>
+    <dimen name="drawable_padding">8dp</dimen>
+    <dimen name="text_line_margin">4dp</dimen>
+
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+
 </resources>
