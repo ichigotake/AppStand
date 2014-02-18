@@ -14,15 +14,39 @@ android {
 
         buildConfigField 'String', 'BASE_PACKAGE_NAME', "\"${project.properties.basePackageName}\""
     }
+
+    signingConfigs {
+        release {
+            storeFile file(project.properties.storeFile)
+            storePassword project.properties.storePassword
+            keyAlias project.properties.storeAlias
+            keyPassword project.properties.keyPassword
+        }
+    }
+
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            packageNameSuffix '.debug'
+        }
+    }
+
+    productFlavors {
+        free {
+            packageName 'net.ichigotake.appstand.free'
+        }
+
+        pro {
+            packageName 'net.ichigotake.appstand.pro'
         }
     }
 }
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
-    compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
