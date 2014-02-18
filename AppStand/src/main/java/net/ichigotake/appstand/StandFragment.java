@@ -1,5 +1,6 @@
 package net.ichigotake.appstand;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -38,8 +39,8 @@ public class StandFragment extends Fragment {
         final PackageAdapter adapter = new PackageAdapter(getActivity());
         final List<ApplicationInfo> installedAppList = getInstalledPackages();
         for (ApplicationInfo appInfo : installedAppList) {
-            Log.d("StandFragment", "p¥name: " + appInfo.packageName);
             if ( isInstallApp(appInfo)
+                    && activitiesExists(appInfo)
                     && appInfo.packageName.startsWith(BuildConfig.BASE_PACKAGE_NAME)) {
                 adapter.add(appInfo);
             }
@@ -59,6 +60,12 @@ public class StandFragment extends Fragment {
     private List<ApplicationInfo> getInstalledPackages() {
         return getActivity().getPackageManager()
                 .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+    }
+
+    private boolean activitiesExists(ApplicationInfo appInfo) {
+        final Intent intent = getActivity().getPackageManager()
+                .getLaunchIntentForPackage(appInfo.packageName);
+        return intent != null;
     }
 
     private static class PackageAdapter extends ArrayAdapter<ApplicationInfo> {
@@ -94,13 +101,19 @@ public class StandFragment extends Fragment {
         public void onClick(View view) {
             final Context context = view.getContext();
             try {
-                Intent intent = context.getPackageManager().getLaunchIntentForPackage(mAppInfo.packageName);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                final Intent intent = context.getPackageManager()
+                        .getLaunchIntentForPackage(mAppInfo.packageName);
                 context.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                onException(context, e);
             } catch (Exception e) {
-                Log.e(LOG_TAG, "", e);
-                Toast.makeText(context, "指定したアプリが開けませんでした", Toast.LENGTH_SHORT);
+                onException(context, e);
             }
+        }
+
+        private void onException(Context context, Exception e) {
+            Toast.makeText(context, "指定したアプリが開けませんでした", Toast.LENGTH_SHORT);
+            Log.e(LOG_TAG, "", e);
         }
     }
 
