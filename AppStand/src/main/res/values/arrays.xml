@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="applicationFilter">
+        <item >@string/filter_usual</item>
+        <item >@string/filter_all</item>
+    </string-array>
+
+</resources>

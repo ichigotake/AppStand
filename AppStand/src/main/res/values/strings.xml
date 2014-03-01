@@ -4,4 +4,7 @@
     <string name="app_name">AppStand</string>
     <string name="app_name_icon">application icon</string>
 
+    <string name="filter_usual">いつもの</string>
+    <string name="filter_all">全て</string>
+
 </resources>

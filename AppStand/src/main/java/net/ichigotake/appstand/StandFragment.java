@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SpinnerAdapter;
 
 public class StandFragment extends Fragment {
 
@@ -16,29 +17,61 @@ public class StandFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        SpinnerAdapter adapter = new ApplicationFilterAdapter(getActivity());
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setListNavigationCallbacks(adapter, new OnFilterSelectedListener());
+        actionBar.setTitle("");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        PackageAdapter adapter = new PackageAdapter(getActivity());
+        getListView(view).setAdapter(adapter);
+        return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        refresh(ApplicationFilter.USUAL);
+    }
 
-        final ApplicationUtils utils = new ApplicationUtils(getActivity());
-        final PackageAdapter adapter = new PackageAdapter(getActivity());
+    private void refresh(ApplicationFilter filterName) {
+        Filter filter = filterName.createFilter();
+        ApplicationUtils utils = new ApplicationUtils(getActivity());
+        PackageAdapter adapter = getAdapter(getView());
+        adapter.clear();
         for (Application app : utils.getInstalledPackages()) {
-            if (app.getPackageName().startsWith(BuildConfig.BASE_PACKAGE_NAME)) {
+            if (filter.apply(app.getPackageName())) {
                 adapter.add(app);
             }
         }
-
-        ((ListView)getView().findViewById(R.id.packages)).setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
 
-        getSupportActionBar().setTitle(BuildConfig.BASE_PACKAGE_NAME);
+    private ListView getListView(View container) {
+        return (ListView)container.findViewById(R.id.packages);
+    }
+
+    private PackageAdapter getAdapter(View container) {
+        return (PackageAdapter)(getListView(container)).getAdapter();
     }
 
     private ActionBar getSupportActionBar() {
         return ((ActionBarActivity)getActivity()).getSupportActionBar();
+    }
+
+    private class OnFilterSelectedListener implements ActionBar.OnNavigationListener {
+
+        @Override
+        public boolean onNavigationItemSelected(int position, long id) {
+            refresh(ApplicationFilter.values()[position]);
+            return true;
+        }
     }
 }
