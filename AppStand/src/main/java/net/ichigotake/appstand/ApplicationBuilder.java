@@ -1,7 +1,5 @@
 package net.ichigotake.appstand;
 
-import android.graphics.drawable.Drawable;
-
 class ApplicationBuilder {
 
     private String mName;

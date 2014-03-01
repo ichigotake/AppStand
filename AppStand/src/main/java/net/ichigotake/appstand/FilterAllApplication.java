@@ -1,6 +1,6 @@
 package net.ichigotake.appstand;
 
-class AllApplicationFilter implements Filter {
+class FilterAllApplication implements Filter {
 
     @Override
     public boolean apply(String name) {

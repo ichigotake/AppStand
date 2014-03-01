@@ -19,13 +19,12 @@ class ApplicationItemClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         final Context context = view.getContext();
+
         try {
             final Intent intent = context.getPackageManager()
                     .getLaunchIntentForPackage(mApplication.getPackageName());
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            onException(context, e);
-        } catch (Exception e) {
             onException(context, e);
         }
     }

@@ -10,11 +10,11 @@ enum ApplicationFilter {
         final Filter filter;
         switch (this) {
             case USUAL:
-                filter = new UsualApplicationFilter();
+                filter = new FilterUsualApplication();
                 break;
             case ALL:
             default:
-                filter = new AllApplicationFilter();
+                filter = new FilterAllApplication();
                 break;
         }
         return filter;

@@ -1,6 +1,6 @@
 package net.ichigotake.appstand;
 
-class UsualApplicationFilter implements Filter {
+class FilterUsualApplication implements Filter {
 
     final private String[] mPackages = {
             "net.ichigotake.appstand.free.debug",
