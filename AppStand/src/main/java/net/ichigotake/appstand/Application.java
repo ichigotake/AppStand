@@ -9,6 +9,4 @@ interface Application {
     String getPackageName();
 
     long getLastUpdatedTime();
-
-    Drawable getIcon();
 }

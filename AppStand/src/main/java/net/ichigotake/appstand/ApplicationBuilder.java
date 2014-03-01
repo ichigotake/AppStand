@@ -7,7 +7,6 @@ class ApplicationBuilder {
     private String mName;
     private String mPackageName;
     private long mLastUpdatedTime;
-    private Drawable mIcon;
 
     Application build() {
         return new ApplicationImpl();
@@ -32,10 +31,6 @@ class ApplicationBuilder {
             return mLastUpdatedTime;
         }
 
-        @Override
-        public Drawable getIcon() {
-            return mIcon;
-        }
     }
 
     ApplicationBuilder setName(String name) {
@@ -53,8 +48,4 @@ class ApplicationBuilder {
         return this;
     }
 
-    ApplicationBuilder setIcon(Drawable icon) {
-        mIcon = icon;
-        return this;
-    }
 }

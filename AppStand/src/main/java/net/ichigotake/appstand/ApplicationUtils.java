@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import java.util.ArrayList;
@@ -35,15 +34,13 @@ class ApplicationUtils {
                 try {
                     final PackageInfo packageInfo = packageManager
                             .getPackageInfo(info.packageName, PackageManager.GET_ACTIVITIES);
-                    final Drawable icon = packageManager.getApplicationIcon(info);
                     final String appName = info.loadLabel(packageManager).toString();
 
                     builder.setName(appName);
-                    builder.setIcon(icon);
                     if (Build.VERSION.SDK_INT >= 9) {
                         builder.setLastUpdated(packageInfo.lastUpdateTime);
                     }
-                } catch (Exception e) {
+                } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                 }
 

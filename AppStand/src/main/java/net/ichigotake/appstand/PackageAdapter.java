@@ -1,6 +1,8 @@
 package net.ichigotake.appstand;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.util.Locale;
 class PackageAdapter extends ArrayAdapter<Application> {
 
     private LayoutInflater mInflater;
+    private PackageManager mPackageManager;
 
     PackageAdapter(Context context) {
         super(context, R.layout.application);
@@ -34,7 +37,12 @@ class PackageAdapter extends ArrayAdapter<Application> {
         final Application app = getItem(position);
         viewHolder.name.setText(app.getName());
         viewHolder.packageName.setText(app.getPackageName().replace(BuildConfig.BASE_PACKAGE_NAME, ""));
-        viewHolder.icon.setImageDrawable(app.getIcon());
+        try {
+            final Drawable icon = getPackageManager().getApplicationIcon(app.getPackageName());
+            viewHolder.icon.setImageDrawable(icon);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         if (app.getLastUpdatedTime() > 0) {
             viewHolder.lastUpdated.setText(getDateFormatter(app.getLastUpdatedTime()));
         } else {
@@ -51,6 +59,13 @@ class PackageAdapter extends ArrayAdapter<Application> {
             mInflater = LayoutInflater.from(getContext());
         }
         return mInflater;
+    }
+
+    private PackageManager getPackageManager() {
+        if (mPackageManager == null) {
+            mPackageManager = getContext().getPackageManager();
+        }
+        return mPackageManager;
     }
 
     private String getDateFormatter(long lastUpdateTime) {
