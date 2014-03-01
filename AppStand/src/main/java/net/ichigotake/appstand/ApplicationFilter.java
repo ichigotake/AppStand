@@ -3,6 +3,8 @@ package net.ichigotake.appstand;
 enum ApplicationFilter {
 
     USUAL,
+    FREE,
+    PRO,
     ALL,
     ;
 
@@ -11,6 +13,12 @@ enum ApplicationFilter {
         switch (this) {
             case USUAL:
                 filter = new FilterUsualApplication();
+                break;
+            case FREE:
+                filter = new FilterFreeApplication();
+                break;
+            case PRO:
+                filter = new FilterProApplication();
                 break;
             case ALL:
             default:

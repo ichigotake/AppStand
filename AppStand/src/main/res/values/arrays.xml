@@ -3,6 +3,8 @@
 
     <string-array name="applicationFilter">
         <item >@string/filter_usual</item>
+        <item >@string/filter_free</item>
+        <item >@string/filter_pro</item>
         <item >@string/filter_all</item>
     </string-array>
 

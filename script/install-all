@@ -1,0 +1,6 @@
+#!/bin/sh
+
+./gradlew installFreeDebug
+./gradlew installProDebug
+./gradlew installFreeRelease
+./gradlew installProRelease

@@ -5,6 +5,8 @@
     <string name="app_name_icon">application icon</string>
 
     <string name="filter_usual">いつもの</string>
+    <string name="filter_free">フリー版</string>
+    <string name="filter_pro">有償版</string>
     <string name="filter_all">全て</string>
 
 </resources>
