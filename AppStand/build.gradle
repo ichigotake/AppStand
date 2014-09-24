@@ -44,11 +44,11 @@ android {
 
     productFlavors {
         free {
-            packageName 'net.ichigotake.appstand.free'
+            applicationId 'net.ichigotake.appstand.free'
         }
 
         pro {
-            packageName 'net.ichigotake.appstand.pro'
+            applicationId 'net.ichigotake.appstand.pro'
         }
     }
 }
@@ -56,3 +56,10 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:20.0.0'
 }
+
+task runChromeAppDebug(type: Exec) {
+    executable "sh"
+    args "-c", "chromeos-apk '${buildDir}/outputs/apk/AppStand-free-debug.apk' " \
+            + "&& /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --load-and-launch-app=${projectDir}/net.ichigotake.appstand.free.debug.android/"
+}
+runChromeAppDebug.dependsOn assembleDebug
