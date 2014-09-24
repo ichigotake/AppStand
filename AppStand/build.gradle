@@ -57,6 +57,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:20.0.0'
 }
 
+// https://github.com/vladikoff/chromeos-apk
 task runChromeAppDebug(type: Exec) {
     executable "sh"
     args "-c", "chromeos-apk '${buildDir}/outputs/apk/AppStand-free-debug.apk' " \
