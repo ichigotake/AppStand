@@ -1,12 +1,12 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.0.1"
+    compileSdkVersion 20
+    buildToolsVersion "19.1.0"
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 19
+        targetSdkVersion 20
 
         def version = readVersion(file("VERSION"))
         versionCode version.toVersionCode()
@@ -15,12 +15,16 @@ android {
         buildConfigField 'String', 'BASE_PACKAGE_NAME', "\"${project.properties.basePackageName}\""
     }
 
+    def signingFile = file(project.properties.storeFile)
+    def signingAuthority = signingFile.exists()
     signingConfigs {
         release {
-            storeFile file(project.properties.storeFile)
-            storePassword project.properties.storePassword
-            keyAlias project.properties.storeAlias
-            keyPassword project.properties.keyPassword
+            if (signingAuthority) {
+                storeFile signingFile
+                storePassword project.properties.storePassword
+                keyAlias project.properties.storeAlias
+                keyPassword project.properties.keyPassword
+            }
         }
     }
 
@@ -28,11 +32,13 @@ android {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            signingConfig signingConfigs.release
+            if (signingAuthority) {
+                signingConfig signingConfigs.release
+            }
         }
 
         debug {
-            packageNameSuffix '.debug'
+            applicationIdSuffix '.debug'
         }
     }
 
@@ -48,5 +54,5 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:20.0.0'
 }
